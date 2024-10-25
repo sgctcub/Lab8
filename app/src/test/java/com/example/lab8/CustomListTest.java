@@ -50,7 +50,9 @@ public class CustomListTest {
         assertTrue(cityList.hasCity(calgary));
         //check same city but different objects
         City edmonton = new City("Edmonton", "Alberta");
-        assertTrue(cityList.hasCity(edmonton));
+        cityList.add(edmonton);
+        City edmonton0 = new City("Edmonton", "Alberta");
+        assertTrue(cityList.hasCity(edmonton0));
         //check if city not present
         City vancouver = new City("Vancouver", "British Columbia");
         assertFalse(cityList.hasCity(vancouver));
