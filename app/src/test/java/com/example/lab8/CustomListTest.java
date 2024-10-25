@@ -3,6 +3,7 @@ package com.example.lab8;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomListTest {
 
@@ -39,9 +41,6 @@ public class CustomListTest {
         assertEquals(list.getCount(), listSize + 1);
     }
 
-    /**
-     *
-     */
     void testHasCity(){
         CustomList cityList = MockCityList();
         //check the same object
@@ -56,6 +55,22 @@ public class CustomListTest {
         //check if city not present
         City vancouver = new City("Vancouver", "British Columbia");
         assertFalse(cityList.hasCity(vancouver));
+    }
+
+    @Test
+    void testDelete(){
+        CustomList cityList = MockCityList();
+        assertEquals(0, cityList.getCount());
+        // delete a city actually present
+        City edmonton = new City("Edmonton", "Alberta");
+        cityList.addCity(edmonton);
+        assertEquals(1, cityList.getCount());
+        cityList.delete(edmonton);
+        assertEquals(0, cityList.getCount());
+        assertFalse(cityList.hasCity(edmonton));
+        // delete a city not present
+        City calgary = new City("Calgary", "Alberta");
+        assertThrows(IllegalArgumentException.class, ()->{cityList.delete(calgary);});
     }
 
 }
